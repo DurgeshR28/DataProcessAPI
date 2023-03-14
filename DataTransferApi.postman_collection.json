@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "3d35be14-e791-4fd6-8dd4-d071efd02ff1",
+		"name": "DataTransferApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13915223"
+	},
+	"item": [
+		{
+			"name": "PostEmployeeAbsencesForLeaveByGuid",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeDTO\" : {\"guid\" : \"2FCDD501-FBE4-447B-A451-C7BA5E3D19CF\"},\r\n    \"token\":\"\"\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44349/api/Employee/PostEmployeeAbsencesForLeaveByGuid",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44349",
+					"path": [
+						"api",
+						"Employee",
+						"PostEmployeeAbsencesForLeaveByGuid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostEmployeeDetailsByGuid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeDTO\" : {\"guid\" : \"2FCDD501-FBE4-447B-A451-C7BA5E3D19CF\"},\r\n    \"token\":\"\"\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44349/api/Employee/PostEmployeeDetailsByGuid",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44349",
+					"path": [
+						"api",
+						"Employee",
+						"PostEmployeeDetailsByGuid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostEmployeeWorkingPeriodByGuid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeDTO\" : {\"guid\" : \"2FCDD501-FBE4-447B-A451-C7BA5E3D19CF\"},\r\n    \"token\":\"\"\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44349/api/Employee/PostEmployeeWorkingPeriodByGuid",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44349",
+					"path": [
+						"api",
+						"Employee",
+						"PostEmployeeWorkingPeriodByGuid"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

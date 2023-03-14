@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "c2ba5116-fbd8-44fc-84b2-a3005465b08a",
+		"name": "DataProcessAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13915223"
+	},
+	"item": [
+		{
+			"name": "PostEmployeeMonthlyWages",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"employeeDTO\" : {\"name\" : \"jhan\"},\r\n    \"test\":\"ett\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44371/api/DataTableProcess/PostEmployeeMonthlyWages",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44371",
+					"path": [
+						"api",
+						"DataTableProcess",
+						"PostEmployeeMonthlyWages"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
