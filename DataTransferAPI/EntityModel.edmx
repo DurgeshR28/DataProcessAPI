@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EmployeeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="absence_type">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="absence_type_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="absences">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="absence_date" Type="datetime" Nullable="false" />
+          <Property Name="absence_type_guid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="department_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="gender_guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="date_of_birth" Type="datetime" Nullable="false" />
+          <Property Name="date_in_service" Type="datetime" Nullable="false" />
+          <Property Name="date_out_service" Type="datetime" Nullable="false" />
+          <Property Name="department_guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="wage_per_day" Type="bigint" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="telephone_fix_number" Type="nvarchar" MaxLength="22" Nullable="false" />
+          <Property Name="mobile_number" Type="nvarchar" MaxLength="22" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="gender_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="working_period">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="employee_guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="begin_date" Type="datetime" Nullable="false" />
+          <Property Name="end_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_absence_absence_type">
+          <End Role="absence_type" Type="Self.absence_type" Multiplicity="1" />
+          <End Role="absences" Type="Self.absences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="absence_type">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="absences">
+              <PropertyRef Name="absence_type_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_absence_employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="absences" Type="Self.absences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="absences">
+              <PropertyRef Name="employee_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_department">
+          <End Role="department" Type="Self.department" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="department_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_gender">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="gender_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_working_period_employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="working_period" Type="Self.working_period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="working_period">
+              <PropertyRef Name="employee_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmployeeDBModelStoreContainer">
+          <EntitySet Name="absence_type" EntityType="Self.absence_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="absences" EntityType="Self.absences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gender" EntityType="Self.gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="working_period" EntityType="Self.working_period" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_absence_absence_type" Association="Self.FK_absence_absence_type">
+            <End Role="absence_type" EntitySet="absence_type" />
+            <End Role="absences" EntitySet="absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_absence_employees" Association="Self.FK_absence_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="absences" EntitySet="absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_department" Association="Self.FK_employees_department">
+            <End Role="department" EntitySet="department" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_gender" Association="Self.FK_employees_gender">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_working_period_employees" Association="Self.FK_working_period_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="working_period" EntitySet="working_period" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmployeeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="absence_type">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="absence_type_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="absences" Relationship="Self.FK_absence_absence_type" FromRole="absence_type" ToRole="absences" />
+        </EntityType>
+        <EntityType Name="absence">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="employee_guid" Type="Guid" Nullable="false" />
+          <Property Name="absence_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="absence_type_guid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="absence_type" Relationship="Self.FK_absence_absence_type" FromRole="absences" ToRole="absence_type" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_absence_employees" FromRole="absences" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="department_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="employees" Relationship="Self.FK_employees_department" FromRole="department" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gender_guid" Type="Guid" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_in_service" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_out_service" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="department_guid" Type="Guid" Nullable="false" />
+          <Property Name="wage_per_day" Type="Int64" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telephone_fix_number" Type="String" MaxLength="22" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mobile_number" Type="String" MaxLength="22" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="absences" Relationship="Self.FK_absence_employees" FromRole="employees" ToRole="absences" />
+          <NavigationProperty Name="department" Relationship="Self.FK_employees_department" FromRole="employees" ToRole="department" />
+          <NavigationProperty Name="gender" Relationship="Self.FK_employees_gender" FromRole="employees" ToRole="gender" />
+          <NavigationProperty Name="working_period" Relationship="Self.FK_working_period_employees" FromRole="employees" ToRole="working_period" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="gender_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="employees" Relationship="Self.FK_employees_gender" FromRole="gender" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="working_period">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="employee_guid" Type="Guid" Nullable="false" />
+          <Property Name="begin_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_working_period_employees" FromRole="working_period" ToRole="employees" />
+        </EntityType>
+        <Association Name="FK_absence_absence_type">
+          <End Role="absence_type" Type="Self.absence_type" Multiplicity="1" />
+          <End Role="absences" Type="Self.absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="absence_type">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="absences">
+              <PropertyRef Name="absence_type_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_absence_employees">
+          <End Role="employees" Type="Self.employee" Multiplicity="1" />
+          <End Role="absences" Type="Self.absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="absences">
+              <PropertyRef Name="employee_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_department">
+          <End Role="department" Type="Self.department" Multiplicity="1" />
+          <End Role="employees" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="department_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_gender">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="employees" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="gender_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_working_period_employees">
+          <End Role="employees" Type="Self.employee" Multiplicity="1" />
+          <End Role="working_period" Type="Self.working_period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="guid" />
+            </Principal>
+            <Dependent Role="working_period">
+              <PropertyRef Name="employee_guid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmployeeDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="absence_type" EntityType="Self.absence_type" />
+          <EntitySet Name="absences" EntityType="Self.absence" />
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="genders" EntityType="Self.gender" />
+          <EntitySet Name="working_period" EntityType="Self.working_period" />
+          <AssociationSet Name="FK_absence_absence_type" Association="Self.FK_absence_absence_type">
+            <End Role="absence_type" EntitySet="absence_type" />
+            <End Role="absences" EntitySet="absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_absence_employees" Association="Self.FK_absence_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="absences" EntitySet="absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_department" Association="Self.FK_employees_department">
+            <End Role="department" EntitySet="departments" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_gender" Association="Self.FK_employees_gender">
+            <End Role="gender" EntitySet="genders" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_working_period_employees" Association="Self.FK_working_period_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="working_period" EntitySet="working_period" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmployeeDBModelStoreContainer" CdmEntityContainer="EmployeeDBEntities1">
+          <EntitySetMapping Name="absence_type">
+            <EntityTypeMapping TypeName="EmployeeDBModel.absence_type">
+              <MappingFragment StoreEntitySet="absence_type">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="absence_type_name" ColumnName="absence_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="absences">
+            <EntityTypeMapping TypeName="EmployeeDBModel.absence">
+              <MappingFragment StoreEntitySet="absences">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="employee_guid" ColumnName="employee_guid" />
+                <ScalarProperty Name="absence_date" ColumnName="absence_date" />
+                <ScalarProperty Name="absence_type_guid" ColumnName="absence_type_guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="EmployeeDBModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="EmployeeDBModel.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="gender_guid" ColumnName="gender_guid" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="date_in_service" ColumnName="date_in_service" />
+                <ScalarProperty Name="date_out_service" ColumnName="date_out_service" />
+                <ScalarProperty Name="department_guid" ColumnName="department_guid" />
+                <ScalarProperty Name="wage_per_day" ColumnName="wage_per_day" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="telephone_fix_number" ColumnName="telephone_fix_number" />
+                <ScalarProperty Name="mobile_number" ColumnName="mobile_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genders">
+            <EntityTypeMapping TypeName="EmployeeDBModel.gender">
+              <MappingFragment StoreEntitySet="gender">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="gender_name" ColumnName="gender_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="working_period">
+            <EntityTypeMapping TypeName="EmployeeDBModel.working_period">
+              <MappingFragment StoreEntitySet="working_period">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="employee_guid" ColumnName="employee_guid" />
+                <ScalarProperty Name="begin_date" ColumnName="begin_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
